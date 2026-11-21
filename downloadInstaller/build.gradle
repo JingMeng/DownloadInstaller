@@ -1,18 +1,21 @@
 apply plugin: 'com.android.library'
 
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 
 android {
-    compileSdkVersion 29
+    namespace 'com.zenglb.downloadinstaller'
+    compileSdkVersion 34
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -31,8 +34,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
 
     testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     //OnActivityResult
     implementation 'com.github.bbssyyuui:ActivityLauncher:1.0.2'
@@ -49,6 +52,8 @@ def siteUrl = "https://github.com/AnyLifeZLB/DownloadInstaller"        // projec
 def gitUrl  = "https://github.com/AnyLifeZLB/DownloadInstaller.git"    // project git
 group = "anylife.downloadinstaller"
 
+// Keep the retired publishing configuration inactive for local builds.
+ext.legacyPublication = {
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
@@ -118,6 +123,7 @@ bintray {
         licenses = ["Apache-2.0"]
         publish = true
     }
+}
 }
 
 
